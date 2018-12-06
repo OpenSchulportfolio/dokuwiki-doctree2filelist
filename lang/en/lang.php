@@ -7,7 +7,7 @@
  */
 
 // custom language strings for the ospdocimport plugin
-$lang['plugname'] = 'Import Wizard for existing document collections';
+$lang['menu'] = 'Import Wizard for existing document collections';
 $lang['headline'] = 'Import Wizard for existing document collections';
 $lang['wizard'] = 'Wizard';
 $lang['settings'] = 'Settings';

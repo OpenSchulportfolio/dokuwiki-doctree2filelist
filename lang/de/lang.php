@@ -7,7 +7,7 @@
  */
 
 // custom language strings for the ospdocimport plugin
-$lang['plugname'] = 'Importassistent für bestehende Dokumentensammlungen';
+$lang['menu'] = 'Importassistent für bestehende Dokumentensammlungen';
 $lang['headline'] = 'Importassistent für bestehende Dokumentensammlungen';
 $lang['wizard'] = 'Assistent';
 $lang['settings'] = 'Einstellungen';

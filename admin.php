@@ -8,11 +8,6 @@
  * @author     Frank Schiebel <frank@linuxmuster.net>
  */
 
-if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../').'/');
-if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
-if(!defined('DOKU_INCLUDE')) define('DOKU_INCLUDE',DOKU_INC.'inc/');
-require_once(DOKU_PLUGIN . 'admin.php');
-require_once(DOKU_INCLUDE . 'io.php');
 
 /**
  * All DokuWiki plugins to extend the admin function
@@ -20,28 +15,6 @@ require_once(DOKU_INCLUDE . 'io.php');
  */
 class admin_plugin_doctree2filelist extends DokuWiki_Admin_Plugin
 {
-    /**
-     * Constructor
-     */
-    function admin_plugin_doctree2filelist()
-    {
-        $this->setupLocale();
-    }
-
-    /**
-     * return some info
-     */
-    function getInfo()
-    {
-        return array(
-            'author' => 'Frank Schiebel',
-            'email'  => 'frank@linuxmuster.net',
-            'date'   => '2011-12-03',
-            'name'   => 'doctree2filelist: Imports document tree into dokuwiki',
-            'desc'   => 'This plugin is for importing a whole tree with (office-)documents to a wiki page-structure. It has been written for openschulportfolio, a dokuwiki based portfolio-system for schools.',
-            'url'    => 'http://www.openschulportfolio.de/',
-        );
-    }
 
     /**
      * return sort order for position in admin menu
@@ -49,17 +22,6 @@ class admin_plugin_doctree2filelist extends DokuWiki_Admin_Plugin
     function getMenuSort()
     {
         return 999;
-    }
-
-    /**
-     *  return a menu prompt for the admin menu
-     *  NOT REQUIRED - its better to place $lang['menu'] string in localised string file
-     *  only use this function when you need to vary the string returned
-     */
-    function getMenuText()
-    {
-        $menu_base = $this->getLang('plugname'); 
-        return $menu_base;
     }
 
     /**
@@ -160,8 +122,7 @@ class admin_plugin_doctree2filelist extends DokuWiki_Admin_Plugin
      * Creates creates reset form 
      *
      * @author   Frank Schiebel <frank@linuxmuster.net>
-     * @param    none
-     * @return   none
+     * @return   string
      *
      **/
     function _create_reset_form() {
@@ -195,9 +156,6 @@ class admin_plugin_doctree2filelist extends DokuWiki_Admin_Plugin
      * Creates upload dir according to config
      *
      * @author   Frank Schiebel <frank@linuxmuster.net>
-     * @param    none
-     * @return   none
-     *
      **/
     function _create_upload_dir() {
         global $conf;
@@ -211,9 +169,6 @@ class admin_plugin_doctree2filelist extends DokuWiki_Admin_Plugin
      * Resets wizard
      *
      * @author   Frank Schiebel <frank@linuxmuster.net>
-     * @param    none
-     * @return   none
-     *
      **/
     function _reset_wizard() {
         global $conf;
@@ -229,9 +184,6 @@ class admin_plugin_doctree2filelist extends DokuWiki_Admin_Plugin
      * Deletes upload dir and all containing docs
      *
      * @author   Frank Schiebel <frank@linuxmuster.net>
-     * @param    none
-     * @return   none
-     *
      **/
     function _delete_upload_dir() {
         global $conf;
@@ -246,9 +198,6 @@ class admin_plugin_doctree2filelist extends DokuWiki_Admin_Plugin
      * Import document tree to media dir
      *
      * @author   Frank Schiebel <frank@linuxmuster.net>
-     * @param    none
-     * @returns  none
-     *
      **/
     function _import_docs() {
         global $conf;
@@ -284,7 +233,6 @@ class admin_plugin_doctree2filelist extends DokuWiki_Admin_Plugin
             copy($pfstartfile_in, $pfstartfile_out);
         }
         $this->_save_status("IMPORTED");
-
     }
 
     /**
@@ -292,9 +240,9 @@ class admin_plugin_doctree2filelist extends DokuWiki_Admin_Plugin
      *
      * @author   Frank Schiebel <frank@linuxmuster.net>
      * @param    string     directory to delete
-     * @returns  boolean    status of rmdir operation
+     * @return  boolean    status of rmdir operation
      *
-     **/
+     */
     function _deltree($dest) {
         $list = array_diff(scandir($dest), array('.', '..'));
             foreach ($list as $value) {
@@ -455,7 +403,7 @@ class admin_plugin_doctree2filelist extends DokuWiki_Admin_Plugin
      *
      * @author   Frank Schiebel <frank@linuxmuster.net>
      * @param    string     path in
-     * @returns  string     path out
+     * @return  string     path out
      *
      **/
     function  _strip_doubleslashes($path) {
@@ -487,10 +435,10 @@ class admin_plugin_doctree2filelist extends DokuWiki_Admin_Plugin
      * $conf['cachedir'].'/doctree2filelist.status'
      *
      * @author   Frank Schiebel <frank@linuxmuster.net>
-     * @param    none
+     * @param string $mode
      * @return   string statusstring
      *
-     **/
+     */
     function _read_status($mode = "statonly") {
         global $conf;
         $status = "START";
